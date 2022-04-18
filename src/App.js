@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import { NavbarComponent, ListCategories, Hasil, Menus } from "./Components";
 import {API_URL} from "./utils/constants"
+import axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class App extends Component {
     axios
       .get(API_URL+"products")
       .then(res => {
-        const menuss = res.data;
+        const menus = res.data;
         this.setState({ menus });
       })
       .catch(error => {
@@ -24,6 +25,7 @@ export default class App extends Component {
       })
   }
   render() {
+    const {menus} = this.state
     return (
       <div className="App">
         <NavbarComponent />
@@ -35,7 +37,7 @@ export default class App extends Component {
                 <h4>
                   <strong>Daftar Produk</strong>
                 </h4>
-                <Row>
+                <Row className="mt-2">
                     {menus && menus.map((menu) => (
                     <Menus 
                       key={menu.id}
